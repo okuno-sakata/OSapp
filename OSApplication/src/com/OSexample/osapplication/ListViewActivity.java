@@ -24,14 +24,14 @@ public class ListViewActivity extends Activity {
 
 	/**
 	 * ListViewに表示する要素のクラス
-	 * 
+	 *
 	 */
 	private class ListViewItem
 	{
 		private int resourceID;
 		private String fileName;
 		private Bitmap img;
-		
+
 		/**
 		 * コンストラクタ
 		 * @param resource_id 画像ファイルのリソースID
@@ -44,7 +44,7 @@ public class ListViewActivity extends Activity {
 			this.fileName = file_name;
 			this.img = img;
 		}
-		
+
 		//Getter
 		public int getResourceID(){
 			return resourceID;
@@ -56,16 +56,16 @@ public class ListViewActivity extends Activity {
 			return img;
 		}
 	}
-		
+
 		/**
 		 * Listviewにセットするアダプタクラス
 		 */
 		private class ListViewItemAdapter extends ArrayAdapter<ListViewItem>{
 			private LayoutInflater layoutInflater;
-			
+
 			/**
 			 * コンストラクタ
-			 */			
+			 */
 			public ListViewItemAdapter(Context context,
 					int textViewResourceId, List<ListViewItem> objects) {
 				//スーパークラスのコンストラクタを呼び出す
@@ -85,20 +85,20 @@ public class ListViewActivity extends Activity {
 			}
 			//position行目のデータを取得
 			ListViewItem item = (ListViewItem)getItem(position);
-			
+
 			//ImageViewに画像をセット
 			ImageView imageView = (ImageView)convertView.findViewById(R.id.imageView_Item);
 			imageView.setImageBitmap(item.getImage());
-			
+
 			//TextViewに文字をセット
 			TextView textView = (TextView)convertView.findViewById(R.id.textView_Item);
 			textView.setText(item.getFileName());
-			
+
 			//covertViewを返す
 			return convertView;
 		}
 		}
-		
+
 		/*
 		 * アクティビティ作成時に呼び出されるメソッド
 		 */
@@ -106,10 +106,10 @@ public class ListViewActivity extends Activity {
 		public void onCreate(Bundle savedInstanceState){
 			//スーパークラスのonCreateを呼び出す
 			super.onCreate(savedInstanceState);
-			
+
 			//コンテントビューに"listView.xml"をセット
 			setContentView(R.layout.listview);
-			
+
 			//ListViewに表示する要素を作成する
 			List<ListViewItem> list = new ArrayList<ListViewItem>();
 			list.add(new ListViewItem (
@@ -121,16 +121,16 @@ public class ListViewActivity extends Activity {
 			list.add(new ListViewItem (
 					R.drawable.ic_launcher,"chinchin",
 					BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher) ));
-			
+
 			//アダプタにListをセット
 			ListViewItemAdapter adapter = new ListViewItemAdapter(this ,0 ,list);
-			
+
 			//ListViewを取得する
 		    ListView listView = (ListView)findViewById(R.id.listView);
-			
+
 			//ListViewにアダプタをセット
 			listView.setAdapter(adapter);
-			
+
 			//ListViewの要素がタッチされたときに呼び出されるイベントリスナーとして無名クラスをセット
 			listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 				//override
@@ -138,24 +138,24 @@ public class ListViewActivity extends Activity {
 					//選択した要素を取得
 					ListView listView = (ListView)parent;
 					ListViewItem item = (ListViewItem)listView.getItemAtPosition(position);
-					
+
 					//ImageViewActivityに遷移するためのインテントを作成
-					Intent intent = new Intent(ListViewActivity.this,ImageViewActivity.class);
-					
+					Intent intent = new Intent(ListViewActivity.this,OSApp_ListActivity.class);
+
 					//インテントに選択した要素のresourceID値をセット
 					intent.putExtra("resourceID", item.getResourceID());
-					
+
 					//ImageViewActivityへ遷移
-					startActivity(intent);					
+					startActivity(intent);
 					}
 				});
 			}
 		}
-	
+
 //	/** Called when the activity is first created. */
 //	@Override
 //	public void onCreate(Bundle savedInstanceState) {
 //	    super.onCreate(savedInstanceState);
-//	
+//
 //	    // TODO Auto-generated method stub
 //	}
