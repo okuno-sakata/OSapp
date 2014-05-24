@@ -140,7 +140,7 @@ public class ListViewActivity extends Activity {
 					ListViewItem item = (ListViewItem)listView.getItemAtPosition(position);
 					
 					//ImageViewActivityに遷移するためのインテントを作成
-					Intent intent = new Intent(ListViewActivity.this,ImageViewActivity.class);
+					Intent intent = new Intent(ListViewActivity.this,OSSearchActivity.class);
 					
 					//インテントに選択した要素のresourceID値をセット
 					intent.putExtra("resourceID", item.getResourceID());
