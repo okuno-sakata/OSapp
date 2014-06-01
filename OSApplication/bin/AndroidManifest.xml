@@ -29,7 +29,9 @@
 
             <meta-data android:name="android.app.searchable" android:resource="@xml/searchable_searchactivity" />
         </activity>
-        <activity android:name="OSYoutubeResultListViewActivity"></activity>
+        <activity android:name="OSYoutubeResuleListViewActivity">
+            <intent-filter></intent-filter>
+        </activity>
         
     </application>
 

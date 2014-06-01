@@ -21,13 +21,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ParseException;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 
 /**
  * OSSearchActivityで検索した結果のYouTubeをリストで表示するクラス
  * 
  */
-public class OSYoutubeResuleListViewActivity extends Activity {
+public class OSYoutubeResuleListViewActivity extends Activity implements OnClickListener {
 
 	// 引数として渡されるqueryのフィールド定義
 	private String query;
@@ -35,25 +38,30 @@ public class OSYoutubeResuleListViewActivity extends Activity {
 	public static String DEVELOPER_KEY;
 
 	private String searchWord;
+    private Button button1;
 
 	// コンストラクタ
-	OSYoutubeResuleListViewActivity(String query) {
+	public OSYoutubeResuleListViewActivity(){
+	}
+	
+	public OSYoutubeResuleListViewActivity(String query) {
 		this.query = query;
 	}
 
-	// Getter
-	public String getQuery() {
-		return query;
-	}
-
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
 	        //Intentの取得
-	        Intent intent = getIntent();
-	        //全画面で入力した文字列の取得
-	        searchWord = getQuery();
+	        Intent intent = this.getIntent();
+	        searchWord = intent.getStringExtra("query");
+
 	        //Layoutの定義
 	        setContentView(R.layout.osyoutube_listview);
+
+	        //検索結果画面から検索画面にもどる
+	        button1 = (Button)findViewById(R.id.button_return);
+	        button1.setOnClickListener(this);
+	        button1.setId(1);
+	        
 	        // HttpResponseの生成
 	        HttpResponse httpResponse = null;
 	        
@@ -167,5 +175,19 @@ public class OSYoutubeResuleListViewActivity extends Activity {
 	// }
 	//
 	// }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+        case 1:
+            Intent data = new Intent();
+            data.putExtra("keyword", "Return");
+            setResult(RESULT_OK, data);
+            // End of sub activity
+            finish();
+            break;
+        default:
+            break;
+        }
+    }
 
 }
