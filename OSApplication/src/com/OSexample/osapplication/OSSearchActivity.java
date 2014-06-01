@@ -63,7 +63,7 @@ public class OSSearchActivity extends Activity {
 	 */
 	private void moveToOSYoutubeResuleListViewActivity(String query) {
 		// ImageViewActivityに遷移するためのインテントを作成
-		Intent resultintent = new Intent(OSSearchActivity.this,OSYoutubeResultListViewActivity.class);
+		Intent resultintent = new Intent(OSSearchActivity.this,OSYoutubeResuleListViewActivity.class);
 		
 		//インテントに選択した要素のresourceID値をセット
 		resultintent.putExtra("resourceID", 1);

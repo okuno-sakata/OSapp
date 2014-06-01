@@ -1,164 +1,171 @@
 package com.OSexample.osapplication;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.ParseException;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
-
 
 /**
- * OSSearchActivityで検索した結果のyoutubeをリストで表示するクラス
+ * OSSearchActivityで検索した結果のYouTubeをリストで表示するクラス
  * 
  */
 public class OSYoutubeResuleListViewActivity extends Activity {
 
-	/**
-	 * ListViewに表示する要素のクラス
-	 * 
-	 */
-	private class ListViewItem
-	{
-		private int resourceID;
-		private String fileName;
-		private Bitmap img;
-		
-		/**
-		 * コンストラクタ
-		 * @param resource_id 画像ファイルのリソースID
-		 * @param String fileName 画像ファイルのファイル名
-		 * @param img 画像ファイルを変換して作成したビットマップ
-		 */
-		public ListViewItem(int resource_id, String file_name, Bitmap img)
-		{
-			this.resourceID = resource_id;
-			this.fileName = file_name;
-			this.img = img;
-		}
-		
-		//Getter
-		public int getResourceID(){
-			return resourceID;
-		}
-		public String getFileName(){
-			return fileName;
-		}
-		public Bitmap getImage(){
-			return img;
-		}
-	}
-		
-		/**
-		 * Listviewにセットするアダプタクラス
-		 */
-		private class ListViewItemAdapter extends ArrayAdapter<ListViewItem>{
-			private LayoutInflater layoutInflater;
-			
-			/**
-			 * コンストラクタ
-			 */			
-			public ListViewItemAdapter(Context context,
-					int textViewResourceId, List<ListViewItem> objects) {
-				//スーパークラスのコンストラクタを呼び出す
-				super(context, textViewResourceId, objects);
-				//LayoutInflaterを取得
-				layoutInflater = (LayoutInflater)getSystemService(LAYOUT_INFLATER_SERVICE);
-			}
+	// 引数として渡されるqueryのフィールド定義
+	private String query;
+	// YouTubeのDeveloperKeyを取得するためのフィールド定義
+	public static String DEVELOPER_KEY;
 
-			/**
-			 * ListViewの各行が表示する要素を返すメソッド
-			 */
-		//@Override
-		public View getView(int position,View convertView, ViewGroup parent){
-			//convertViewがnullだった場合のみLayoutInflaterを利用して"listview_item.xml"からビューを取得する
-			if(convertView == null){
-				convertView = layoutInflater.inflate(R.layout.listview_item, null);
-			}
-			//position行目のデータを取得
-			ListViewItem item = (ListViewItem)getItem(position);
-			
-			//ImageViewに画像をセット
-			ImageView imageView = (ImageView)convertView.findViewById(R.id.imageView_Item);
-			imageView.setImageBitmap(item.getImage());
-			
-			//TextViewに文字をセット
-			TextView textView = (TextView)convertView.findViewById(R.id.textView_Item);
-			textView.setText(item.getFileName());
-			
-			//covertViewを返す
-			return convertView;
-		}
-		}
-		
-		/*
-		 * アクティビティ作成時に呼び出されるメソッド
-		 */
-		//override
-		public void onCreate(Bundle savedInstanceState){
-			//スーパークラスのonCreateを呼び出す
-			super.onCreate(savedInstanceState);
-			
-			//コンテントビューに"listView.xml"をセット
-			setContentView(R.layout.listview);
-			
-			//ListViewに表示する要素を作成する
-			List<ListViewItem> list = new ArrayList<ListViewItem>();
-			list.add(new ListViewItem (
-					R.drawable.ic_launcher,"My PlayList",
-					BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher) ));
-			list.add(new ListViewItem (
-					R.drawable.ic_launcher,"Create New Folder",
-					BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher) ));
-			list.add(new ListViewItem (
-					R.drawable.ic_launcher,"chinchin",
-					BitmapFactory.decodeResource(getResources(),R.drawable.ic_launcher) ));
-			
-			//アダプタにListをセット
-			ListViewItemAdapter adapter = new ListViewItemAdapter(this ,0 ,list);
-			
-			//ListViewを取得する
-		    ListView listView = (ListView)findViewById(R.id.listView);
-			
-			//ListViewにアダプタをセット
-			listView.setAdapter(adapter);
-			
-			//ListViewの要素がタッチされたときに呼び出されるイベントリスナーとして無名クラスをセット
-			listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-				//override
-				public void onItemClick(AdapterView<?> parent,View view,int position,long id){
-					//選択した要素を取得
-					ListView listView = (ListView)parent;
-					ListViewItem item = (ListViewItem)listView.getItemAtPosition(position);
-					
-					//ImageViewActivityに遷移するためのインテントを作成
-					Intent intent = new Intent(OSYoutubeResuleListViewActivity.this,OSSearchActivity.class);
-					
-					//インテントに選択した要素のresourceID値をセット
-					intent.putExtra("resourceID", item.getResourceID());
-					
-					//ImageViewActivityへ遷移
-					startActivity(intent);					
-					}
-				});
-			}
-		}
-	
-//	/** Called when the activity is first created. */
-//	@Override
-//	public void onCreate(Bundle savedInstanceState) {
-//	    super.onCreate(savedInstanceState);
-//	
-//	    // TODO Auto-generated method stub
-//	}
+	private String searchWord;
+
+	// コンストラクタ
+	OSYoutubeResuleListViewActivity(String query) {
+		this.query = query;
+	}
+
+	// Getter
+	public String getQuery() {
+		return query;
+	}
+
+	protected void onCreate(Bundle savedInstanceState) {
+	        super.onCreate(savedInstanceState);
+	        //Intentの取得
+	        Intent intent = getIntent();
+	        //全画面で入力した文字列の取得
+	        searchWord = getQuery();
+	        //Layoutの定義
+	        setContentView(R.layout.osyoutube_listview);
+	        // HttpResponseの生成
+	        HttpResponse httpResponse = null;
+	        
+	        //URLの定義
+	        String Url = "http://gdata.youtube.com/feeds/api/videos?v=2&alt=jsonc";
+	        try {
+	        	//UTF-8 エンコード対応
+	            Url += "&q=" + URLEncoder.encode(searchWord, "UTF-8");
+	        } catch(UnsupportedEncodingException e1){
+	        	//exception対応
+	            e1.printStackTrace();
+	        	}
+	        HttpUriRequest httpGet = new HttpGet(Url);
+	        DefaultHttpClient defaultHttpClient = new DefaultHttpClient();
+	        try {
+	            // YouTubeからレスポンスデータを取得する 
+	        	httpResponse = defaultHttpClient.execute(httpGet);
+	        } catch (Exception e) { 
+	            //Log.e("HttpResponse", "Error Execute"); 
+	        } finally{
+	        	
+	        }
+	        
+	        if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+	             try {
+	                 // レスポンスデータをjsonオブジェクトへ変換する
+	                 JSONObject json = new JSONObject(EntityUtils.toString(httpResponse.getEntity()));
+	                 // jsonオブジェクトを配列とする
+	                 JSONArray jsonArray = json.getJSONObject("data").getJSONArray("items");
+	                 // DefaultHttpClient shutdown
+	                 defaultHttpClient.getConnectionManager().shutdown();
+	                 // Custom Class list creates to store the feed data
+	                 List<OSYoutubeResultFactor> objects = new ArrayList<OSYoutubeResultFactor>();
+	                 
+	                 Bitmap bitmap;
+	                 OSYoutubeResultFactor imageData = new OSYoutubeResultFactor();
+	                 for (int i = 0; i < jsonArray.length(); ++i) {
+	                     // jsonarray から JSONObjectを配列の長さ分取得する 
+	                     JSONObject jsonObject = jsonArray.getJSONObject(i);
+	                     // Title gets from JSONObject
+	                     String title = jsonObject.getString("title");
+	                     String url; // Mobile URL
+	                     try {
+	                         // URL of mobile gets from JSONObject
+	                         url = jsonObject.getJSONObject("player").getString("mobile");
+	                         //Log.v("TAG", "url1");
+	                     } catch (JSONException e) {
+	                         url = jsonObject.getJSONObject("player").getString("default");
+	                         //Log.v("TAG", "url2");
+	                     }
+	                     // サムネイルの取得
+	                     String thumbnail = jsonObject.getJSONObject("thumbnail").getString("sqDefault");
+	                     // thumbnail String converts as Bitmap
+	                     bitmap = imageData.GetBitmap(thumbnail);
+	                     // ListView at the made object added
+	                     objects.add(new OSYoutubeResultFactor(title,url, bitmap));	   
+	                 }    
+	                 // Adapter creates from the made object
+	                 OSYoutubeResultAdapter imageAdapter = new OSYoutubeResultAdapter(this, 0, objects);
+	                 ListView listView =  (ListView) findViewById(R.id.osyoutube_listview_result);
+	                 // CustomAdapter sets to ListView
+	                 listView.setAdapter(imageAdapter);
+	             } catch (JSONException e) {
+	                 
+	             } catch (ParseException e) {
+	                 e.printStackTrace();
+	             } catch (IOException e) {
+	                 e.printStackTrace();
+	             }
+	        }
+	        
+	        //youtubeの要素をクリックした後の処理
+	        
+	        
+	        }
+	//
+	// protected void onCreate(Bundle savedInstanceState) {
+	// super.onCreate(savedInstanceState);
+	// setContentView(R.layout.activity_main);
+	//
+	// // フラグメントインスタンスを取得
+	// YouTubePlayerFragment youTubePlayerFragment =
+	// (YouTubePlayerFragment)
+	// getFragmentManager().findFragmentById(R.id.youtube_fragment);
+	//
+	// // フラグメントのプレーヤーを初期化する
+	// youTubePlayerFragment.initialize("DEVELOPER_KEY", this);
+	// }
+	//
+	// @Override
+	// public boolean onCreateOptionsMenu(Menu menu) {
+	// // Inflate the menu; this adds items to the action bar if it is present.
+	// getMenuInflater().inflate(R.menu.main, menu);
+	// return true;
+	// }
+	//
+	// @Override
+	// public void onInitializationFailure(Provider provider,
+	// YouTubeInitializationResult error) {
+	// // プレーヤーの初期化失敗時に呼ばれる
+	// }
+	//
+	// @Override
+	// public void onInitializationSuccess(Provider provider, YouTubePlayer
+	// player,
+	// boolean wasRestored) {
+	// // プレーヤーの初期化成功時に呼ばれる
+	// if (!wasRestored) {
+	// // 指定された動画のサムネイルを読み込み、プレーヤーがその動画を再生する準備を行う
+	// player.cueVideo("nCgQDjiotG0");
+	// }
+	//
+	// }
+
+}
