@@ -53,8 +53,20 @@ public class OSSearchActivity extends Activity {
 		setIntent(intent);
 		if (Intent.ACTION_SEARCH.equals(intent.getAction()) == true) {
 			String query = intent.getStringExtra(SearchManager.QUERY);
-			// query = 検索文字列
+			moveToOSYoutubeResuleListViewActivity(query);
 		}
+	}
+
+	/**
+	 * onNewIntentで作ったqueryを引数としてリスト画面へ遷移する
+	 * 
+	 */
+	private void moveToOSYoutubeResuleListViewActivity(String query) {
+		// ImageViewActivityに遷移するためのインテントを作成
+		Intent resuleintent = new Intent(this,OSYoutubeResuleListViewActivity.class);
+		
+		//OSYoutubeResuleListViewActivityへ遷移
+		startActivity(resuleintent);	
 	}
 
 }

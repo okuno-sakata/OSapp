@@ -19,8 +19,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 
-
-public class ListViewActivity extends Activity {
+/**
+ * OSSearchActivityで検索した結果のyoutubeをリストで表示するクラス
+ * 
+ */
+public class OSYoutubeResuleListViewActivity extends Activity {
 
 	/**
 	 * ListViewに表示する要素のクラス
@@ -139,8 +142,8 @@ public class ListViewActivity extends Activity {
 					ListView listView = (ListView)parent;
 					ListViewItem item = (ListViewItem)listView.getItemAtPosition(position);
 					
-					//OSSearchActivityに遷移するためのインテントを作成
-					Intent intent = new Intent(ListViewActivity.this,OSSearchActivity.class);
+					//ImageViewActivityに遷移するためのインテントを作成
+					Intent intent = new Intent(OSYoutubeResuleListViewActivity.this,OSSearchActivity.class);
 					
 					//インテントに選択した要素のresourceID値をセット
 					intent.putExtra("resourceID", item.getResourceID());
@@ -151,3 +154,11 @@ public class ListViewActivity extends Activity {
 				});
 			}
 		}
+	
+//	/** Called when the activity is first created. */
+//	@Override
+//	public void onCreate(Bundle savedInstanceState) {
+//	    super.onCreate(savedInstanceState);
+//	
+//	    // TODO Auto-generated method stub
+//	}
