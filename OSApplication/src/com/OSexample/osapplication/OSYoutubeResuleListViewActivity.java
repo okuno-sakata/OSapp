@@ -23,6 +23,7 @@ import android.net.ParseException;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -30,7 +31,8 @@ import android.widget.ListView;
  * OSSearchActivityで検索した結果のYouTubeをリストで表示するクラス
  * 
  */
-public class OSYoutubeResuleListViewActivity extends Activity implements OnClickListener {
+public class OSYoutubeResuleListViewActivity extends Activity implements
+		OnClickListener {
 
 	// 引数として渡されるqueryのフィールド定義
 	private String query;
@@ -38,12 +40,12 @@ public class OSYoutubeResuleListViewActivity extends Activity implements OnClick
 	public static String DEVELOPER_KEY;
 
 	private String searchWord;
-    private Button button1;
+	private Button button1;
 
 	// コンストラクタ
-	public OSYoutubeResuleListViewActivity(){
+	public OSYoutubeResuleListViewActivity() {
 	}
-	
+
 	public OSYoutubeResuleListViewActivity(String query) {
 		this.query = query;
 	}
@@ -131,63 +133,40 @@ public class OSYoutubeResuleListViewActivity extends Activity implements OnClick
 	             } catch (IOException e) {
 	                 e.printStackTrace();
 	             }
-	        }
-	        
-	        //youtubeの要素をクリックした後の処理
-	        
-	        
-	        }
-	//
-	// protected void onCreate(Bundle savedInstanceState) {
-	// super.onCreate(savedInstanceState);
-	// setContentView(R.layout.activity_main);
-	//
-	// // フラグメントインスタンスを取得
-	// YouTubePlayerFragment youTubePlayerFragment =
-	// (YouTubePlayerFragment)
-	// getFragmentManager().findFragmentById(R.id.youtube_fragment);
-	//
-	// // フラグメントのプレーヤーを初期化する
-	// youTubePlayerFragment.initialize("DEVELOPER_KEY", this);
-	// }
-	//
-	// @Override
-	// public boolean onCreateOptionsMenu(Menu menu) {
-	// // Inflate the menu; this adds items to the action bar if it is present.
-	// getMenuInflater().inflate(R.menu.main, menu);
-	// return true;
-	// }
-	//
-	// @Override
-	// public void onInitializationFailure(Provider provider,
-	// YouTubeInitializationResult error) {
-	// // プレーヤーの初期化失敗時に呼ばれる
-	// }
-	//
-	// @Override
-	// public void onInitializationSuccess(Provider provider, YouTubePlayer
-	// player,
-	// boolean wasRestored) {
-	// // プレーヤーの初期化成功時に呼ばれる
-	// if (!wasRestored) {
-	// // 指定された動画のサムネイルを読み込み、プレーヤーがその動画を再生する準備を行う
-	// player.cueVideo("nCgQDjiotG0");
-	// }
-	//
-	// }
-
-    public void onClick(View v) {
-        switch (v.getId()) {
-        case 1:
-            Intent data = new Intent();
-            data.putExtra("keyword", "Return");
-            setResult(RESULT_OK, data);
-            // End of sub activity
-            finish();
-            break;
-        default:
-            break;
-        }
+	        }	        
+	
+    //YouTubeの要素をクリックした後の処理
+	ListView listView =  (ListView) findViewById(R.id.osyoutube_listview_result);
+	listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		public void onItemClick(AdapterView<?> parent,View view,int position,long id){
+			//選択した要素を取得
+			ListView listView = (ListView)parent;
+			OSYoutubeResultFactor youtubeResultFactor = (OSYoutubeResultFactor)listView.getItemAtPosition(position);
+			
+			//動画再生が画面に遷移するためのインテントを作成
+			Intent playIntent = new Intent(OSYoutubeResuleListViewActivity.this,OSYoutubePlayActivity.class);
+			
+			//インテントに選択した要素のresourceID値をセット
+			playIntent.putExtra("Url", youtubeResultFactor.getUrl());
+			
+			//ImageViewActivityへ遷移
+			startActivity(playIntent);					
+		}
+	});
     }
+
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case 1:
+			Intent data = new Intent();
+			data.putExtra("keyword", "Return");
+			setResult(RESULT_OK, data);
+			// End of sub activity
+			finish();
+			break;
+		default:
+			break;
+		}
+	}
 
 }
