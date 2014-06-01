@@ -7,6 +7,7 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="16" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -28,7 +29,7 @@
 
             <meta-data android:name="android.app.searchable" android:resource="@xml/searchable_searchactivity" />
         </activity>
-        <activity android:name="OSYoutubeResuleListViewActivity"></activity>
+        <activity android:name="OSYoutubeResultListViewActivity"></activity>
         
     </application>
 
