@@ -34,21 +34,8 @@ import android.widget.ListView;
 public class OSYoutubeResuleListViewActivity extends Activity implements
 		OnClickListener {
 
-	// 引数として渡されるqueryのフィールド定義
-	private String query;
-	// YouTubeのDeveloperKeyを取得するためのフィールド定義
-	public static String DEVELOPER_KEY;
-
 	private String searchWord;
 	private Button button1;
-
-	// コンストラクタ
-	public OSYoutubeResuleListViewActivity() {
-	}
-
-	public OSYoutubeResuleListViewActivity(String query) {
-		this.query = query;
-	}
 
 	public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
@@ -147,7 +134,7 @@ public class OSYoutubeResuleListViewActivity extends Activity implements
 			Intent playIntent = new Intent(OSYoutubeResuleListViewActivity.this,OSYoutubePlayActivity.class);
 			
 			//インテントに選択した要素のresourceID値をセット
-			playIntent.putExtra("Url", youtubeResultFactor.getUrl());
+			playIntent.putExtra("youtubeURL", youtubeResultFactor.getUrl());
 			
 			//ImageViewActivityへ遷移
 			startActivity(playIntent);					
