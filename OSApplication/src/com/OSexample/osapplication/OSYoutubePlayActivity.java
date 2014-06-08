@@ -1,5 +1,7 @@
 package com.OSexample.osapplication;
 
+import java.util.HashMap;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -74,11 +76,18 @@ public class OSYoutubePlayActivity extends YouTubeBaseActivity implements
 			AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
 			alertDlg.setTitle("My Listへの追加");
 			alertDlg.setMessage("My Listへ追加しますか？");
+			//TODO ここで作成してあるリストを表示し、どこに追加するかせんたくできるようにする。
+			
+			//TODO ここでも新しいフォルダが作成できるようにする。
+			
 			alertDlg.setPositiveButton("OK",
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							Object PlayListInfo = new Object();
+							HashMap<String,String> map = new HashMap<String,String>();
+							//ひとまずはvideo IDじゃなくてURLをリストに追加してやってみる。
+							map.put("youtubeurl",url);
+
 						}
 					});
 			alertDlg.setNegativeButton("Cancel",
