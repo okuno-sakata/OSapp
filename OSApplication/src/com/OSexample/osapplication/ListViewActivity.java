@@ -140,6 +140,9 @@ public class ListViewActivity extends Activity {
 					ListViewItem item = (ListViewItem)listView.getItemAtPosition(position);
 					
 					//OSSearchActivityに遷移するためのインテントを作成
+//					Intent intent = new Intent(ListViewActivity.this,OSSearchActivity.class);
+					
+					//あとでけす
 					Intent intent = new Intent(ListViewActivity.this,OSSearchActivity.class);
 					
 					//インテントに選択した要素のresourceID値をセット
