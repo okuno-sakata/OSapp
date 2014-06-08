@@ -10,6 +10,11 @@ import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayer.OnInitializedListener;
 import com.google.android.youtube.player.YouTubePlayerView;
 
+
+/**
+ * OSYoutubeResultListActivityから遷移し、ここで動画を再生する
+ * 
+ */
 public class OSYoutubePlayActivity extends YouTubeBaseActivity implements
 		OnInitializedListener {
 	private static final int RECOVERY_DIALOG_REQUEST = 1;
