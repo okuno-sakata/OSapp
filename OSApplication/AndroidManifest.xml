@@ -35,6 +35,7 @@
         </activity>
         <activity android:name="OSYoutubePlayActivity"></activity>
         <activity android:name="OSYoutubePlayWebViewActivity"></activity>
+        <activity android:name="OSCreateFoldersActivity"></activity>
         
     </application>
 
