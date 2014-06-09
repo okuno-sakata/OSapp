@@ -1,9 +1,4 @@
-package com.OSexample.Search;
-
-import com.OSexample.osapplication.R;
-import com.OSexample.osapplication.R.id;
-import com.OSexample.osapplication.R.layout;
-import com.OSexample.osapplication.R.menu;
+package com.OSexample.osapplication;
 
 import android.app.Activity;
 import android.app.SearchManager;

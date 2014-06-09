@@ -1,8 +1,5 @@
 package com.OSexample.Search;
 
-import java.util.List;
-
-
 /**
  * YouTubeの情報をオブジェクトで定義するためのクラス
  * 

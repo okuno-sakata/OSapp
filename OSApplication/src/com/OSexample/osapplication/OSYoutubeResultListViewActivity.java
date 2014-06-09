@@ -1,4 +1,4 @@
-package com.OSexample.Search;
+package com.OSexample.osapplication;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -16,9 +16,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.OSexample.osapplication.R;
-import com.OSexample.osapplication.R.id;
-import com.OSexample.osapplication.R.layout;
+import com.OSexample.Search.OSYoutubeResultAdapter;
+import com.OSexample.Search.OSYoutubeResultFactor;
 
 import android.app.Activity;
 import android.content.Intent;

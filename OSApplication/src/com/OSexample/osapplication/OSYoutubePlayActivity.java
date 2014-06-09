@@ -1,4 +1,4 @@
-package com.OSexample.Search;
+package com.OSexample.osapplication;
 
 import java.util.ArrayList;
 
@@ -11,9 +11,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.OSexample.osapplication.R;
-import com.OSexample.osapplication.R.id;
-import com.OSexample.osapplication.R.layout;
+import com.OSexample.Search.OSYoutubeDeveloperKey;
+import com.OSexample.Search.OSYoutubeVO;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;

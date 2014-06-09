@@ -1,10 +1,6 @@
-package com.OSexample.Folder;
+package com.OSexample.osapplication;
 
 import java.util.List;
-
-import com.OSexample.osapplication.R;
-import com.OSexample.osapplication.R.id;
-import com.OSexample.osapplication.R.layout;
 
 import android.app.Activity;
 import android.os.Bundle;
