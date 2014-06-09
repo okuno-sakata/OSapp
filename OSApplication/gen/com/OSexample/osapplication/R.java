@@ -26,19 +26,19 @@ public final class R {
         public static final int ic_launcher=0x7f020001;
     }
     public static final class id {
-        public static final int LISTadd_view=0x7f090003;
-        public static final int Listadd_button=0x7f090002;
         public static final int action_search=0x7f090013;
         public static final int action_settings=0x7f090012;
         public static final int bottom_control=0x7f090008;
         public static final int button_return=0x7f090009;
         public static final int container=0x7f090000;
         public static final int create_new_folder=0x7f090004;
-        public static final int edit_text_list=0x7f090001;
+        public static final int edit_folder_name=0x7f090001;
+        public static final int folder_add_button=0x7f090002;
         public static final int fragment_ListView=0x7f09000e;
         public static final int frameLayout_Portrait=0x7f09000d;
         public static final int imageView_Item=0x7f090006;
         public static final int listView=0x7f090005;
+        public static final int list_add_view=0x7f090003;
         public static final int open_searchbox=0x7f09000f;
         public static final int osyoutube_listview_result=0x7f09000a;
         public static final int osyoutube_singlefactor_text=0x7f09000c;

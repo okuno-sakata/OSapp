@@ -1,6 +1,6 @@
 package com.OSexample.osapplication;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -84,10 +84,10 @@ public class OSYoutubePlayActivity extends YouTubeBaseActivity implements
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							HashMap<String,String> map = new HashMap<String,String>();
-							//ひとまずはvideo IDじゃなくてURLをリストに追加してやってみる。
-							map.put("youtubeurl",url);
-
+							//YouTubeのObjectを作成(ひとまずはURLだけ渡す実装にする)
+							createYoutubeInfo(url);
+							//TODO 作ったオブジェクトをデータ格納処理へ渡す。
+							
 						}
 					});
 			alertDlg.setNegativeButton("Cancel",
@@ -109,5 +109,15 @@ public class OSYoutubePlayActivity extends YouTubeBaseActivity implements
 		String video_id = url.substring(url.indexOf("=") + 1);
 		return video_id;
 	}
+	
+	/**
+	 * YouTubeのオブジェクトを生成する
+	 * 
+	 */
+	public static Object createYoutubeInfo(String url) {
+		OSYoutubeVO youtubeVO = new OSYoutubeVO();
+		return youtubeVO;
+	}
+
 
 }

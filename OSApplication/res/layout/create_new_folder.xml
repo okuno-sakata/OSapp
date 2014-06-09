@@ -5,19 +5,19 @@
     android:orientation="vertical" >
 
     <EditText
-        android:id="@+id/edit_text_list"
+        android:id="@+id/edit_folder_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="入力して下さい"/>
 
     <Button
-        android:id="@+id/Listadd_button"
+        android:id="@+id/folder_add_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="追加"/>
 
     <ListView
-        android:id="@+id/LISTadd_view"
+        android:id="@+id/list_add_view"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>
 

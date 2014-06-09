@@ -1,5 +1,7 @@
 package com.OSexample.osapplication;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -17,25 +19,27 @@ public class OSCreateFoldersActivity extends Activity {
 
 	// ContextMenuアイテムid
 	static final int CONTEXT_MENU1_ID = 0;
-	ArrayAdapter<String> adapter;
+	
+	public static ArrayAdapter<String> adapter;
+	//フォルダのオブジェクトをフィールドで定義
+	public static List<Object> folder; 
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.create_new_folder);
 
 		// ListViewオブジェクトの取得
-		ListView listView = (ListView) findViewById(R.id.LISTadd_view);
+		ListView listView = (ListView) findViewById(R.id.list_add_view);
 
 		// ArrayAdapterオブジェクト生成
 		adapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1);
 
-		// Buttonオブジェクト取得
-		Button Listadd_button = (Button) findViewById(R.id.Listadd_button);
+		// Button生成
+		Button Listadd_button = (Button) findViewById(R.id.folder_add_button);
 
 		// クリックイベントの通知先指定
 		Listadd_button.setOnClickListener(new OnClickListener() {
-
 			// クリックイベント
 			@Override
 			public void onClick(View v) {
@@ -54,7 +58,7 @@ public class OSCreateFoldersActivity extends Activity {
 	private void addStringData() {
 
 		// EditTextオブジェクト取得
-		EditText edit = (EditText) findViewById(R.id.edit_text_list);
+		EditText edit = (EditText) findViewById(R.id.edit_folder_name);
 
 		// EditText(テキスト)を取得し、アダプタに追加
 		adapter.add(edit.getText().toString());
@@ -83,10 +87,9 @@ public class OSCreateFoldersActivity extends Activity {
 		switch (item.getItemId()) {
 		case CONTEXT_MENU1_ID:
 			// 削除項目を選択されたテキスト名取得
-			EditText edit = (EditText) findViewById(R.id.edit_text_list);
+			EditText edit = (EditText) findViewById(R.id.edit_folder_name);
 			// 取得されたテキストの削除
 			adapter.remove(edit.getText().toString());
-
 			return true;
 		default:
 			return super.onContextItemSelected(item);
