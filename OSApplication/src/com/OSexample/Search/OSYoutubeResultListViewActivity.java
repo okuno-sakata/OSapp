@@ -35,7 +35,7 @@ import android.widget.ListView;
  * OSSearchActivityで検索した結果のYouTubeをリストで表示するクラス
  * 
  */
-public class OSYoutubeResuleListViewActivity extends Activity implements
+public class OSYoutubeResultListViewActivity extends Activity implements
 		OnClickListener {
 
 	private String searchWord;
@@ -135,7 +135,7 @@ public class OSYoutubeResuleListViewActivity extends Activity implements
 			OSYoutubeResultFactor youtubeResultFactor = (OSYoutubeResultFactor)listView.getItemAtPosition(position);
 			
 			//動画再生が画面に遷移するためのインテントを作成
-			Intent playIntent = new Intent(OSYoutubeResuleListViewActivity.this,OSYoutubePlayActivity.class);
+			Intent playIntent = new Intent(OSYoutubeResultListViewActivity.this,OSYoutubePlayActivity.class);
 			
 			//インテントに選択した要素のresourceID値をセット
 			playIntent.putExtra("youtubeURL", youtubeResultFactor.getUrl());

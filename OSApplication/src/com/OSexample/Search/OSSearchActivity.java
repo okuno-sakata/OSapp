@@ -59,7 +59,7 @@ public class OSSearchActivity extends Activity {
 		if (Intent.ACTION_SEARCH.equals(intent.getAction()) == true) {
 			String query = intent.getStringExtra(SearchManager.QUERY);
 	         //Intent intent = new Intent(MainActivity.this, sub.class);
-	         Intent resultintent = new Intent(OSSearchActivity.this, OSYoutubeResuleListViewActivity.class);
+	         Intent resultintent = new Intent(OSSearchActivity.this, OSYoutubeResultListViewActivity.class);
 	         // Parameter is edit text for sub activity
 	         resultintent.putExtra("query", query);
 	         // Call substitute activity
