@@ -1,6 +1,10 @@
-package com.OSexample.osapplication;
+package com.OSexample.Search;
 
 import java.util.List;
+
+import com.OSexample.osapplication.R;
+import com.OSexample.osapplication.R.id;
+import com.OSexample.osapplication.R.layout;
 
 import android.content.Context;
 import android.view.LayoutInflater;

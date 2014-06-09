@@ -1,4 +1,4 @@
-package com.OSexample.osapplication;
+package com.OSexample.Search;
 
 public class OSYoutubeDeveloperKey {
 	/**

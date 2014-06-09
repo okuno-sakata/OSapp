@@ -1,4 +1,4 @@
-package com.OSexample.osapplication;
+package com.OSexample.Search;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.OSexample.osapplication.R;
+import com.OSexample.osapplication.R.id;
+import com.OSexample.osapplication.R.layout;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
@@ -76,18 +79,18 @@ public class OSYoutubePlayActivity extends YouTubeBaseActivity implements
 			AlertDialog.Builder alertDlg = new AlertDialog.Builder(this);
 			alertDlg.setTitle("My Listへの追加");
 			alertDlg.setMessage("My Listへ追加しますか？");
-			//TODO ここで作成してあるリストを表示し、どこに追加するかせんたくできるようにする。
-			
-			//TODO ここでも新しいフォルダが作成できるようにする。
-			
+			// TODO ここで作成してあるリストを表示し、どこに追加するかせんたくできるようにする。
+
+			// TODO ここでも新しいフォルダが作成できるようにする。
+
 			alertDlg.setPositiveButton("OK",
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							//YouTubeのObjectを作成 URLと//Video IDも作成する
-							createYoutubeInfo(url,video_id(url));
-							//TODO 作ったオブジェクトをデータ格納処理へ渡す。
-							
+							// YouTubeのObjectを作成 URLと//Video IDも作成する
+							createYoutubeInfo(url, video_id(url));
+							// TODO 作ったオブジェクトをデータ格納処理へ渡す。
+
 						}
 					});
 			alertDlg.setNegativeButton("Cancel",
@@ -109,20 +112,19 @@ public class OSYoutubePlayActivity extends YouTubeBaseActivity implements
 		String video_id = url.substring(url.indexOf("=") + 1);
 		return video_id;
 	}
-	
+
 	/**
 	 * YouTubeのオブジェクトを生成する
 	 * 
 	 */
-	public static Object createYoutubeInfo(String url,String videoId) {
+	public static Object createYoutubeInfo(String url, String videoId) {
 		ArrayList<Object> youtubeInfo = new ArrayList<>();
-		
-		OSYoutubeVO youtubeVO = new OSYoutubeVO(url,videoId);
-		
+
+		OSYoutubeVO youtubeVO = new OSYoutubeVO(url, videoId);
+
 		youtubeInfo.add(youtubeVO);
-		
+
 		return youtubeInfo;
 	}
-
 
 }

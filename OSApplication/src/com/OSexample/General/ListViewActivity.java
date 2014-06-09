@@ -1,7 +1,11 @@
-package com.OSexample.osapplication;
+package com.OSexample.General;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.OSexample.Folder.OSCreateFoldersActivity;
+import com.OSexample.Search.OSSearchActivity;
+import com.OSexample.osapplication.R;
 
 import android.app.Activity;
 import android.content.Context;

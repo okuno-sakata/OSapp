@@ -1,4 +1,4 @@
-package com.OSexample.osapplication;
+package com.OSexample.Search;
 
 import java.util.List;
 
@@ -24,6 +24,8 @@ public class OSYoutubeVO {
 	private String youtubeURL;
 	//Video ID
 	private String videoID;
+	//そういえばタイトル引っ張ってこないと
+	//TODO 要実装
 	
 	
 	public String getYoutubeURL() {

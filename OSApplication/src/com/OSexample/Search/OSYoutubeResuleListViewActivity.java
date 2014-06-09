@@ -1,4 +1,4 @@
-package com.OSexample.osapplication;
+package com.OSexample.Search;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -15,6 +15,10 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.OSexample.osapplication.R;
+import com.OSexample.osapplication.R.id;
+import com.OSexample.osapplication.R.layout;
 
 import android.app.Activity;
 import android.content.Intent;
