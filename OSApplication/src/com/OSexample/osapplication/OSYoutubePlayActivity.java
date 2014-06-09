@@ -65,7 +65,7 @@ public class OSYoutubePlayActivity extends YouTubeBaseActivity implements
 			YouTubePlayer player, boolean wasRestored) {
 		// YouTubeの動画IDを設定
 		if (!wasRestored) {
-			String video_id = this.video_id(url);
+			String video_id = OSYoutubePlayActivity.video_id(url);
 			player.cueVideo(video_id);
 		}
 	}
@@ -84,8 +84,8 @@ public class OSYoutubePlayActivity extends YouTubeBaseActivity implements
 					new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							//YouTubeのObjectを作成(ひとまずはURLだけ渡す実装にする)
-							createYoutubeInfo(url);
+							//YouTubeのObjectを作成 URLと//Video IDも作成する
+							createYoutubeInfo(url,video_id(url));
 							//TODO 作ったオブジェクトをデータ格納処理へ渡す。
 							
 						}
@@ -105,7 +105,7 @@ public class OSYoutubePlayActivity extends YouTubeBaseActivity implements
 	 * YouTubeのURLでv=以下にあるVideo IDを取得する
 	 * 
 	 */
-	private String video_id(String url) {
+	private static String video_id(String url) {
 		String video_id = url.substring(url.indexOf("=") + 1);
 		return video_id;
 	}
@@ -114,9 +114,14 @@ public class OSYoutubePlayActivity extends YouTubeBaseActivity implements
 	 * YouTubeのオブジェクトを生成する
 	 * 
 	 */
-	public static Object createYoutubeInfo(String url) {
-		OSYoutubeVO youtubeVO = new OSYoutubeVO();
-		return youtubeVO;
+	public static Object createYoutubeInfo(String url,String videoId) {
+		ArrayList<Object> youtubeInfo = new ArrayList<>();
+		
+		OSYoutubeVO youtubeVO = new OSYoutubeVO(url,videoId);
+		
+		youtubeInfo.add(youtubeVO);
+		
+		return youtubeInfo;
 	}
 
 
