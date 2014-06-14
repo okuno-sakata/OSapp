@@ -16,19 +16,20 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.OSexample.Search.OSYoutubeResultAdapter;
-import com.OSexample.Search.OSYoutubeResultFactor;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.ParseException;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+
+import com.OSexample.Search.OSYoutubeResultAdapter;
+import com.OSexample.Search.OSYoutubeResultFactor;
 
 /**
  * OSSearchActivityで検索した結果のYouTubeをリストで表示するクラス
@@ -56,6 +57,7 @@ public class OSYoutubeResultListViewActivity extends Activity implements
 	        
 	        // HttpResponseの生成
 	        HttpResponse httpResponse = null;
+	        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
 	        
 	        //URLの定義
 	        String Url = "http://gdata.youtube.com/feeds/api/videos?v=2&alt=jsonc";
