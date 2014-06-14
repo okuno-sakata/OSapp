@@ -45,6 +45,7 @@
         </activity>
         <activity android:name="OSCreateFoldersActivity" >
         </activity>
+        <activity android:name="OSPlayListActivity"></activity>
     </application>
 
 </manifest>

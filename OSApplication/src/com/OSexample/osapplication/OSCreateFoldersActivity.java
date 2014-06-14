@@ -1,15 +1,13 @@
 package com.OSexample.osapplication;
 
-import java.util.List;
+import com.OSexample.Search.OSYoutubeResultFactor;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,82 +15,65 @@ import android.widget.ListView;
 
 public class OSCreateFoldersActivity extends Activity {
 
-	// ContextMenuアイテムid
-	static final int CONTEXT_MENU1_ID = 0;
-	
-	public static ArrayAdapter<String> adapter;
-	//フォルダのオブジェクトをフィールドで定義
-	public static List<Object> folder; 
+	// ArrayAdapterオブジェクト生成
+	public static ArrayAdapter<String> playListAdapter;
 
+	// ListViewの定義
+	public static ListView listView;
+
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.create_new_folder);
-
-		// ListViewオブジェクトの取得
-		ListView listView = (ListView) findViewById(R.id.list_add_view);
-
+		setContentView(R.layout.create_folder_0610);
 		// ArrayAdapterオブジェクト生成
-		adapter = new ArrayAdapter<String>(this,
+		playListAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1);
 
 		// Button生成
 		Button Listadd_button = (Button) findViewById(R.id.folder_add_button);
 
 		// クリックイベントの通知先指定
+		// Addボタン押した後の処理
 		Listadd_button.setOnClickListener(new OnClickListener() {
 			// クリックイベント
 			@Override
 			public void onClick(View v) {
+				// EditTextオブジェクト取得
+				EditText edit = (EditText) findViewById(R.id.edit_folder_name);
+				String fileName = edit.getText().toString();
+
 				// 要素追加
 				addStringData();
+				// EditText(テキスト)を取得し、アダプタに追加
+				playListAdapter.add(fileName);
+			}
+
+			/**
+			 * Stringのデータにオブジェクトを登録する
+			 */
+			private void addStringData() {
+
+				// EditText(テキスト)を取得し、アダプタに追加
+				// ListViewにアダプタをset
+				ListView listView = (ListView) findViewById(R.id.playlist_view);
+				listView.setAdapter(playListAdapter);
+
+				// コンテキストメニュー登録
+				registerForContextMenu(listView);
+				// リストをクリックした後の処理
+				listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+						// 動画再生が画面に遷移するためのインテントを作成
+						Intent playListIntent = new Intent(
+								OSCreateFoldersActivity.this,
+								OSPlayListActivity.class);
+						// OSPlayListActivityへ遷移
+						startActivity(playListIntent);
+					}
+				});
+
 			}
 		});
-		// Adapterのセット
-		listView.setAdapter(adapter);
-		// コンテキストメニュー登録
-		registerForContextMenu(listView);
-
-	}
-
-	// 要素（Stringデータ）追加処理
-	private void addStringData() {
-
-		// EditTextオブジェクト取得
-		EditText edit = (EditText) findViewById(R.id.edit_folder_name);
-
-		// EditText(テキスト)を取得し、アダプタに追加
-		adapter.add(edit.getText().toString());
-
-	}
-
-	/*
-	 * コンテキストメニュー生成時処理
-	 */
-	public void onCreateContextMenu(ContextMenu menu, View view,
-			ContextMenuInfo info) {
-		super.onCreateContextMenu(menu, view, info);
-		AdapterContextMenuInfo adapterinfo = (AdapterContextMenuInfo) info;
-		ListView listView = (ListView) view;
-
-		// コンテキストメニューのタイトル
-		menu.setHeaderTitle((String) listView
-				.getItemAtPosition(adapterinfo.position));
-		// メニュー出し
-		menu.add(0, CONTEXT_MENU1_ID, 0, "削除する");
-
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {// ContextMenuアイテム選択イベント
-		switch (item.getItemId()) {
-		case CONTEXT_MENU1_ID:
-			// 削除項目を選択されたテキスト名取得
-			EditText edit = (EditText) findViewById(R.id.edit_folder_name);
-			// 取得されたテキストの削除
-			adapter.remove(edit.getText().toString());
-			return true;
-		default:
-			return super.onContextItemSelected(item);
-		}
 	}
 }
