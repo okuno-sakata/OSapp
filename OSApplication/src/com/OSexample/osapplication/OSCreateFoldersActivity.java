@@ -1,5 +1,6 @@
 package com.OSexample.osapplication;
 
+import com.OSexample.Folder.OSSamplePlayListNameActivity;
 import com.OSexample.Search.OSYoutubeResultFactor;
 
 import android.app.Activity;
@@ -17,6 +18,7 @@ public class OSCreateFoldersActivity extends Activity {
 
 	// ArrayAdapterオブジェクト生成
 	public static ArrayAdapter<String> playListAdapter;
+	
 
 	// ListViewの定義
 	public static ListView listView;
@@ -28,6 +30,18 @@ public class OSCreateFoldersActivity extends Activity {
 		// ArrayAdapterオブジェクト生成
 		playListAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1);
+		//Sampleここにリストを取得する処理を追加
+		ListView listView = (ListView) findViewById(R.id.playlist_view);
+		listView.setAdapter(playListAdapter);
+
+		// コンテキストメニュー登録
+		registerForContextMenu(listView);
+		
+		for(String data : OSSamplePlayListNameActivity.playListName){
+			playListAdapter.add(data);
+	}
+		
+		
 
 		// Button生成
 		Button Listadd_button = (Button) findViewById(R.id.folder_add_button);
@@ -56,7 +70,6 @@ public class OSCreateFoldersActivity extends Activity {
 				// EditText(テキスト)を取得し、アダプタに追加
 				// ListViewにアダプタをset
 				ListView listView = (ListView) findViewById(R.id.playlist_view);
-				listView.setAdapter(playListAdapter);
 
 				// コンテキストメニュー登録
 				registerForContextMenu(listView);
