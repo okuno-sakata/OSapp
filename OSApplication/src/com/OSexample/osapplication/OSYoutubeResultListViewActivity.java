@@ -138,9 +138,13 @@ public class OSYoutubeResultListViewActivity extends Activity implements
 			//動画再生が画面に遷移するためのインテントを作成
 			Intent playIntent = new Intent(OSYoutubeResultListViewActivity.this,OSYoutubePlayActivity.class);
 			
-			//インテントに選択した要素のresourceID値をセット
+			//インテントに選択した要素をセット
+			//URL
 			playIntent.putExtra("youtubeURL", youtubeResultFactor.getUrl());
-			
+			//Title
+			playIntent.putExtra("title", youtubeResultFactor.getTitle());
+			//Bitmap(サムネ)
+			playIntent.putExtra("picture", youtubeResultFactor.getImageData());
 			//ImageViewActivityへ遷移
 			startActivity(playIntent);					
 		}

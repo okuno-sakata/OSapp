@@ -20,6 +20,8 @@ public class OSPlayListActivity extends Activity {
         //ここにPlayListにひもづく曲の一覧を配置
         
         
+        
+        
 	}
 	
 

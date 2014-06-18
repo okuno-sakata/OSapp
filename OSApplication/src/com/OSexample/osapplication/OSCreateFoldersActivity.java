@@ -41,6 +41,19 @@ public class OSCreateFoldersActivity extends Activity {
 			playListAdapter.add(data);
 	}
 		
+		// リストをクリックした後の処理
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// 動画再生が画面に遷移するためのインテントを作成
+				Intent playListIntent = new Intent(
+						OSCreateFoldersActivity.this,
+						OSPlayListActivity.class);
+				// OSPlayListActivityへ遷移
+				startActivity(playListIntent);
+			}
+		});
+		
 		
 
 		// Button生成
@@ -73,18 +86,7 @@ public class OSCreateFoldersActivity extends Activity {
 
 				// コンテキストメニュー登録
 				registerForContextMenu(listView);
-				// リストをクリックした後の処理
-				listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
-						// 動画再生が画面に遷移するためのインテントを作成
-						Intent playListIntent = new Intent(
-								OSCreateFoldersActivity.this,
-								OSPlayListActivity.class);
-						// OSPlayListActivityへ遷移
-						startActivity(playListIntent);
-					}
-				});
+
 
 			}
 		});
