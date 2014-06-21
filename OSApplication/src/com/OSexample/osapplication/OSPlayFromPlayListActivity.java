@@ -1,5 +1,8 @@
 package com.OSexample.osapplication;
 
+import java.util.Collections;
+import java.util.List;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -29,6 +32,15 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 	private Button playButton;
 	// 動画の停止ボタン
 	private Button pauseButton;
+	// 動画のランダムボタン
+	private Button randamButton;
+	// 動画のネクストボタン
+	private Button nextButton;
+	// videoIDのリストフィールド
+	public static List<String> videoIDList;
+
+	// ランダム用のフラグ
+	private boolean randamPlay;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +55,16 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 
 		playButton = (Button) findViewById(R.id.play_button);
 		pauseButton = (Button) findViewById(R.id.pause_button);
+		randamButton = (Button) findViewById(R.id.random_button);
+		nextButton =  (Button) findViewById(R.id.next_button);
 
 		playButton.setOnClickListener(this);
 		pauseButton.setOnClickListener(this);
+		randamButton.setOnClickListener(this);
+		nextButton.setOnClickListener(this);
 
+		// 初期状態はランダム再生オフにしておく。
+		randamPlay = false;
 	}
 
 	@Override
@@ -66,11 +84,16 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 	@Override
 	public void onInitializationSuccess(YouTubePlayer.Provider provider,
 			YouTubePlayer player, boolean wasRestored) {
+		// Playerの初期化
 		this.player = player;
 		// YouTubeの動画IDを設定
 		if (!wasRestored) {
-			String video_id = videoid;
-			player.cueVideo(video_id);
+			if(!randamPlay){
+//			String video_id = videoid;
+			player.cueVideos(OSPlayListActivity.getVideoidlist());
+			player.play();
+//			player.cueVideo(video_id);
+			}
 		}
 	}
 
@@ -80,7 +103,22 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 			player.play();
 		} else if (v == pauseButton) {
 			player.pause();
+		} else if (v == randamButton) {
+			if (!randamPlay) {
+				randamPlay = true;
+			} else {
+				randamPlay = false;
+			}
+		}else if (v == nextButton){
+			player.next();
 		}
+	}
+
+	// 必要に応じてランダムリストのvideoIDを生成する。
+	public List<String> makeRandamList(List<String> list) {
+		// ここでランダムのリストを作っておく。
+		Collections.shuffle(videoIDList);
+		return videoIDList;
 	}
 
 }
