@@ -19,8 +19,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class OSPlayListActivity extends Activity {
-	
-	//VideoIDのリストフィールド
+
+	// VideoIDのリストフィールド
 	private static List<String> videoidlist;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -41,8 +41,8 @@ public class OSPlayListActivity extends Activity {
 		list.add(new YoutubeListItem("XEgHyaeSFkk", "Sample song2",
 				BitmapFactory.decodeResource(getResources(),
 						R.drawable.ic_launcher), "S7hrRU1s6go"));
-		//VideoIdのリストを作成
-		OSPlayListActivity.setVideoidlist(makeVideoIDList(list));
+//		 //VideoIdのリストを作成
+//		 OSPlayListActivity.setVideoidlist(makeVideoIDList(list));
 
 		// アダプタにListをセット
 		PlayListViewItemAdapter adapter = new PlayListViewItemAdapter(this, 0,
@@ -63,6 +63,21 @@ public class OSPlayListActivity extends Activity {
 				ListView listView = (ListView) parent;
 				YoutubeListItem item = (YoutubeListItem) listView
 						.getItemAtPosition(position);
+
+				videoidlist = new ArrayList<>();
+				videoidlist.add(item.getVideoid());
+				
+				for(int i = position+1; i < parent.getChildCount();i++){
+					YoutubeListItem listItem = (YoutubeListItem) listView.getItemAtPosition(i);
+					videoidlist.add(listItem.getVideoid());
+				}
+				for(int i = 0 ; i< position;i++){
+					YoutubeListItem listItem = (YoutubeListItem) listView.getItemAtPosition(i);
+					videoidlist.add(listItem.getVideoid());
+				}
+				 //VideoIdのリストをset
+				 OSPlayListActivity.setVideoidlist(videoidlist);
+
 				Intent intent;
 
 				switch (item.getTitle()) {
@@ -84,19 +99,10 @@ public class OSPlayListActivity extends Activity {
 
 	}
 
-	private List<String> makeVideoIDList(List<YoutubeListItem> list) {
-		// video Id の配列作成
-		List<String> videoIDList = new ArrayList<>();
-		// Listの分だけアイテムをvideoIDListに追加
-		for (int i = 0; i < list.size(); i++) {
-			videoIDList.add(list.get(i).getVideoid());
-		}
-		return videoIDList;
-	}
-
 	public static List<String> getVideoidlist() {
 		return videoidlist;
 	}
+
 	public static void setVideoidlist(List<String> videoidlist) {
 		OSPlayListActivity.videoidlist = videoidlist;
 	}

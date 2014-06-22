@@ -65,7 +65,7 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 		pauseButton.setOnClickListener(this);
 		randamButton.setOnClickListener(this);
 		nextButton.setOnClickListener(this);
-		
+		//リピートのためのクラスを初期化
 	    playerStateChangeListener = new MyPlayerStateChangeListener();
 
 		// 初期状態はランダム再生オフにしておく。
@@ -128,6 +128,11 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 		return videoIDList;
 	}
 
+	/**
+	 * ハイレベルなプレーヤーの状態が変化した場合に呼び出されるコールバックのインターフェース定義
+	 * 現状はマイリストがすべて再生された後にもう一度再生させるための処理のみ実装
+	 *
+	 */
 	public class MyPlayerStateChangeListener implements PlayerStateChangeListener {
 
 		@Override
