@@ -40,10 +40,15 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 	private Button randamButton;
 	// 動画のネクストボタン
 	private Button nextButton;
+	// 動画のリピートボタン
+	private Button repeatButton;
+
 	// videoIDのリストフィールド
 	public static List<String> videoIDList;
 	// ランダム用のフラグ
 	private boolean randamPlay;
+	// リピート用のフラグ
+	private boolean repeatPlay;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,16 +65,20 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 		pauseButton = (Button) findViewById(R.id.pause_button);
 		randamButton = (Button) findViewById(R.id.random_button);
 		nextButton = (Button) findViewById(R.id.next_button);
+		repeatButton = (Button) findViewById(R.id.repeat_button);
 
 		playButton.setOnClickListener(this);
 		pauseButton.setOnClickListener(this);
 		randamButton.setOnClickListener(this);
 		nextButton.setOnClickListener(this);
-		//リピートのためのクラスを初期化
-	    playerStateChangeListener = new MyPlayerStateChangeListener();
+		repeatButton.setOnClickListener(this);
+		// リピートのためのクラスを初期化
+		playerStateChangeListener = new MyPlayerStateChangeListener();
 
 		// 初期状態はランダム再生オフにしておく。
 		randamPlay = false;
+		// 初期状態はリピート再生オフにしておく
+		repeatPlay = false;
 	}
 
 	@Override
@@ -118,6 +127,12 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 			}
 		} else if (v == nextButton) {
 			player.next();
+		} else if (v == repeatButton) {
+			if (!repeatPlay) {
+				repeatPlay = true;
+			} else {
+				repeatPlay = false;
+			}
 		}
 	}
 
@@ -131,9 +146,10 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 	/**
 	 * ハイレベルなプレーヤーの状態が変化した場合に呼び出されるコールバックのインターフェース定義
 	 * 現状はマイリストがすべて再生された後にもう一度再生させるための処理のみ実装
-	 *
+	 * 
 	 */
-	public class MyPlayerStateChangeListener implements PlayerStateChangeListener {
+	public class MyPlayerStateChangeListener implements
+			PlayerStateChangeListener {
 
 		@Override
 		public void onAdStarted() {
@@ -161,8 +177,10 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 
 		@Override
 		public void onVideoEnded() {
-			if(!player.hasNext()){
-			player.loadVideos(OSPlayListActivity.getVideoidlist());
+			if (repeatPlay) {
+				if (!player.hasNext()) {
+					player.loadVideos(OSPlayListActivity.getVideoidlist());
+				}
 			}
 		}
 
