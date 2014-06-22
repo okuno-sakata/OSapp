@@ -38,7 +38,7 @@ public class OSPlayListActivity extends Activity {
 		list.add(new YoutubeListItem("oBS7KOuYujQ", "Sample song1",
 				BitmapFactory.decodeResource(getResources(),
 						R.drawable.ic_launcher), "oBS7KOuYujQ"));
-		list.add(new YoutubeListItem("S7hrRU1s6go", "Sample song2",
+		list.add(new YoutubeListItem("XEgHyaeSFkk", "Sample song2",
 				BitmapFactory.decodeResource(getResources(),
 						R.drawable.ic_launcher), "S7hrRU1s6go"));
 		//VideoIdのリストを作成

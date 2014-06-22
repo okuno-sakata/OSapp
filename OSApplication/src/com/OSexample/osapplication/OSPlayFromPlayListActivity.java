@@ -14,7 +14,9 @@ import com.OSexample.Search.OSYoutubeDeveloperKey;
 import com.google.android.youtube.player.YouTubeBaseActivity;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
+import com.google.android.youtube.player.YouTubePlayer.ErrorReason;
 import com.google.android.youtube.player.YouTubePlayer.OnInitializedListener;
+import com.google.android.youtube.player.YouTubePlayer.PlayerStateChangeListener;
 import com.google.android.youtube.player.YouTubePlayerView;
 
 /**
@@ -26,7 +28,9 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 	private String videoid;
 	private static final int RECOVERY_DIALOG_REQUEST = 1;
 
+	private YouTubePlayerView youTubeView;
 	private YouTubePlayer player;
+	private MyPlayerStateChangeListener playerStateChangeListener;
 
 	// 動画の再生ボタン
 	private Button playButton;
@@ -38,7 +42,6 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 	private Button nextButton;
 	// videoIDのリストフィールド
 	public static List<String> videoIDList;
-
 	// ランダム用のフラグ
 	private boolean randamPlay;
 
@@ -50,18 +53,20 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 		this.videoid = intent.getStringExtra("videoid");
 		setContentView(R.layout.play_from_playlist);
 		// YoutubePlayerViewにDeveloperキーを設定
-		YouTubePlayerView youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
+		youTubeView = (YouTubePlayerView) findViewById(R.id.youtube_view);
 		youTubeView.initialize(OSYoutubeDeveloperKey.DEVELOPER_KEY, this);
 
 		playButton = (Button) findViewById(R.id.play_button);
 		pauseButton = (Button) findViewById(R.id.pause_button);
 		randamButton = (Button) findViewById(R.id.random_button);
-		nextButton =  (Button) findViewById(R.id.next_button);
+		nextButton = (Button) findViewById(R.id.next_button);
 
 		playButton.setOnClickListener(this);
 		pauseButton.setOnClickListener(this);
 		randamButton.setOnClickListener(this);
 		nextButton.setOnClickListener(this);
+		
+	    playerStateChangeListener = new MyPlayerStateChangeListener();
 
 		// 初期状態はランダム再生オフにしておく。
 		randamPlay = false;
@@ -86,15 +91,17 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 			YouTubePlayer player, boolean wasRestored) {
 		// Playerの初期化
 		this.player = player;
+		player.setPlayerStateChangeListener(playerStateChangeListener);
 		// YouTubeの動画IDを設定
 		if (!wasRestored) {
-			if(!randamPlay){
-//			String video_id = videoid;
-			player.cueVideos(OSPlayListActivity.getVideoidlist());
-			player.play();
-//			player.cueVideo(video_id);
+			if (!randamPlay) {
+				setMovie();
 			}
 		}
+	}
+
+	private void setMovie() {
+		player.loadVideos(OSPlayListActivity.getVideoidlist());
 	}
 
 	@Override
@@ -109,7 +116,7 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 			} else {
 				randamPlay = false;
 			}
-		}else if (v == nextButton){
+		} else if (v == nextButton) {
 			player.next();
 		}
 	}
@@ -119,6 +126,46 @@ public class OSPlayFromPlayListActivity extends YouTubeBaseActivity implements
 		// ここでランダムのリストを作っておく。
 		Collections.shuffle(videoIDList);
 		return videoIDList;
+	}
+
+	public class MyPlayerStateChangeListener implements PlayerStateChangeListener {
+
+		@Override
+		public void onAdStarted() {
+			// TODO 自動生成されたメソッド・スタブ
+
+		}
+
+		@Override
+		public void onError(ErrorReason arg0) {
+			// TODO 自動生成されたメソッド・スタブ
+
+		}
+
+		@Override
+		public void onLoaded(String arg0) {
+			// TODO 自動生成されたメソッド・スタブ
+
+		}
+
+		@Override
+		public void onLoading() {
+			// TODO 自動生成されたメソッド・スタブ
+
+		}
+
+		@Override
+		public void onVideoEnded() {
+			if(!player.hasNext()){
+			player.loadVideos(OSPlayListActivity.getVideoidlist());
+			}
+		}
+
+		@Override
+		public void onVideoStarted() {
+			// TODO 自動生成されたメソッド・スタブ
+
+		}
 	}
 
 }

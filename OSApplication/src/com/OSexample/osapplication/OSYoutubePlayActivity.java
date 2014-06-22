@@ -68,7 +68,7 @@ public class OSYoutubePlayActivity extends YouTubeBaseActivity implements
 		// YouTubeの動画IDを設定
 		if (!wasRestored) {
 			String video_id = OSYoutubePlayActivity.video_id(url);
-			player.cueVideo(video_id);
+			player.loadVideo(video_id);
 		}
 	}
 
