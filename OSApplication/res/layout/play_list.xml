@@ -3,13 +3,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
-    <Button
-        android:id="@+id/delete_button"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="youtubeの検索" />
-    
     
     <ListView
         android:id="@+id/song_playlist_view"
