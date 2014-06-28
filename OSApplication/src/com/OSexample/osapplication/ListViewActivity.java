@@ -118,12 +118,12 @@ public class ListViewActivity extends Activity {
 		// ListViewに表示する要素を作成する
 		List<ListViewItem> list = new ArrayList<ListViewItem>();
 		list.add(new ListViewItem(R.drawable.ic_launcher,
-				"Search YouTube Video", BitmapFactory.decodeResource(
+				"YouTubeで検索", BitmapFactory.decodeResource(
 						getResources(), R.drawable.ic_launcher)));
-		list.add(new ListViewItem(R.drawable.ic_launcher, "Create New Folder",
+		list.add(new ListViewItem(R.drawable.ic_launcher, "マイリスト",
 				BitmapFactory.decodeResource(getResources(),
 						R.drawable.ic_launcher)));
-		list.add(new ListViewItem(R.drawable.ic_launcher, "Share",
+		list.add(new ListViewItem(R.drawable.ic_launcher, "共有",
 				BitmapFactory.decodeResource(getResources(),
 						R.drawable.ic_launcher)));
 
@@ -149,7 +149,7 @@ public class ListViewActivity extends Activity {
 
 				switch (item.fileName) {
 
-				case "Search YouTube Video":
+				case "YouTubeで検索":
 					// OSSearchActivityに遷移するためのインテントを作成
 					intent = new Intent(ListViewActivity.this,
 							OSSearchActivity.class);
@@ -158,7 +158,7 @@ public class ListViewActivity extends Activity {
 					// ImageViewActivityへ遷移
 					startActivity(intent);
 					break;
-				case "Create New Folder":
+				case "マイリスト":
 					// OSCreateFoldersActivityに遷移するためのインテントを作成
 					intent = new Intent(ListViewActivity.this,
 							OSCreateFoldersActivity.class);
@@ -167,7 +167,7 @@ public class ListViewActivity extends Activity {
 					// ImageViewActivityへ遷移
 					startActivity(intent);
 					break;
-				case "Share":
+				case "共有":
 					// に遷移するためのインテントを作成 //TODO
 					intent = new Intent(ListViewActivity.this,
 							OSSearchActivity.class);
